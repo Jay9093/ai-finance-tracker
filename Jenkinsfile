@@ -1,13 +1,18 @@
 pipeline {
     agent any
     
+    triggers {
+        // Poll every 2 minutes
+        pollSCM('H/2 * * * *')
+    }
+    
     environment {
-        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_ACCESS_KEY_ID = credentials('aws-credentials-file')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-credentials-file')
         AWS_DEFAULT_REGION = 'us-east-1'
         DOCKER_IMAGE = 'finance-tracker'
         ECR_REPOSITORY = 'finance-tracker'
-        ECR_REGISTRY = '123456789012.dkr.ecr.us-east-1.amazonaws.com'
+        ECR_REGISTRY = '061051249522.dkr.ecr.us-east-1.amazonaws.com'
     }
     
     stages {
